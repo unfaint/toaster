@@ -106,6 +106,7 @@ def on_start_button_clicked():
     # width, height = rect.width(), rect.height()
 
     full_screen.graphic_view.setGeometry(0, 0, width, height)
+    full_screen.graphic_view.setStyleSheet("border-width: 0px; border-style: solid")
 
     show = True
 
@@ -154,6 +155,14 @@ def on_start_button_clicked():
         full_screen.keyPressEvent = on_key
         full_screen.timer.start(form.sliderBlinking.value() * 500)
     else:
+        def on_key(e):
+            if e.key() != Qt.Key_Space:
+                full_screen.close()
+
+            if e.key() == Qt.Key_Space:
+                toggle_lines()
+
+        full_screen.keyPressEvent = on_key
         toggle_lines()
 
     full_screen.showFullScreen()
